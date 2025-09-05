@@ -1,0 +1,28 @@
+Button {
+	width: 100%;
+	height: auto;
+}
+
+Grid {
+	grid-size: 4;
+	grid-columns: 1fr 1fr 1fr;
+	padding: 1;
+	align-horizontal: center;
+	align-vertical: middle;
+}
+
+SuggestionItemWidget {
+	width: 100%;
+	height: auto;
+	background: $surface;
+	color: $text;
+	border: panel $primary;
+	content-align: center middle;
+}
+
+SuggestionsWidget {
+	border: panel $primary;
+	width: 150;
+	height: 10;
+	margin: 3;
+}
