@@ -4,5 +4,6 @@ browser.json
 oauth.json
 ytmtui.sh
 urwid_app.py
+home_pool.json
 back/__pycache__
 front/__pycache__

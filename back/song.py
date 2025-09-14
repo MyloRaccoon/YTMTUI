@@ -12,10 +12,28 @@ class Song(Item):
 		self.thumbnail = thumbnail
 		super().__init__("song")
 
+	def to_data(self) -> dict:
+		return {
+			'id': self.id,
+			'title': self.title,
+			'url': self.url,
+			'artist': self.artist,
+			'thumbnail': self.thumbnail.to_data()
+		}
+
 	def __str__(self) -> str:
 		res = f'~ {self.title}'
 		res += f'\nid: {self.id}\nartist: {self.artist}\nurl: {self.url}'
 		return res
+
+def song_from_data(data: dict) -> Song:
+	return Song(
+		data['id'],
+		data['title'],
+		data['url'],
+		data['artist'],
+		get_thumbnail(data['thumbnail'])
+	)
 
 def get_song(id: str) -> Song:
 	song = YTM.get_song(id)

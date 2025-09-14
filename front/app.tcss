@@ -1,23 +1,88 @@
-Button {
-	width: 100%;
+Container {
 	height: auto;
 }
 
-Grid {
-	grid-size: 4;
-	grid-columns: 1fr 1fr 1fr;
-	padding: 1;
+HomeWidget {
+	height: auto;
+	margin: 0;
+}
+
+.player_label {
+	align: center middle;
+	text-align: center;
+	width: 50%;
+}
+
+#position_label {
+	margin-right: 1;
+}
+
+#duration_label {
+	margin-left: 1;
+}
+
+PlayerWidget {
+	dock: bottom;
+	height: auto;
+	margin: 0;
+	background: $background-lighten-1;
+	border: hkey $background-lighten-2;
+	content-align: center middle;
+	align: center middle;
+}
+
+Button {
+	width: 100%;
+	height: 10;
+}
+.player-btn {
+	width: auto;
+	height: auto;
+	margin: 1;
+}
+
+.top-element {
+	width: auto;
+	height: auto;
+	margin: 15;
+	margin-top: 1;
+	margin-bottom: 1;
+	content-align: center middle;
+	text-align: center;
+}
+
+Horizontal {
+	margin: 0;
+	height: auto;
+	width: 100%;
+	content-align: center middle;
 	align-horizontal: center;
 	align-vertical: middle;
 }
 
+Grid {
+	grid-size: 4;
+	grid-columns: 1fr 1fr 1fr 1fr;
+	grid-rows: auto;
+	padding: 1;
+	align-horizontal: center;
+	align-vertical: middle;
+	margin-top: 0;
+	height: auto;
+}
+
+VerticalScroll {
+	height: auto;
+}
+
 SuggestionItemWidget {
-	width: 100%;
+	width: 1fr;
 	height: auto;
 	background: $surface;
 	color: $text;
 	border: panel $primary;
 	content-align: center middle;
+	margin: 1;
 }
 
 SuggestionsWidget {

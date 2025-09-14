@@ -18,7 +18,7 @@ class HomeWidget(Widget):
 		songs = self.home.suggestions.copy()
 		with VerticalScroll():
 			with Grid():
-				for song in songs[:15]:
+				for song in songs[:30]:
 					yield SongWidget(song)
 
 			# match suggestion.item_type:
