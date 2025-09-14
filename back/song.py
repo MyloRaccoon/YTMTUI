@@ -44,3 +44,9 @@ def get_song(id: str) -> Song:
 		song['videoDetails']['author'],
 		get_thumbnail(song['microformat']['microformatDataRenderer']['thumbnail']['thumbnails'][0])
 	)
+
+def get_next_song(id: str):
+	return YTM.get_watch_playlist(
+		videoId = id,
+		limit = 2
+	)['tracks'][1]['videoId']

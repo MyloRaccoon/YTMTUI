@@ -8,6 +8,8 @@ class Player:
     def __init__(self):
         self.player = mpv.MPV(ytdl=True, vid=False)
         self.queue = queue.Queue()
+        self.next_song = None
+
         self.thread = threading.Thread(target=self.loop, daemon=True)
         self.thread.start()
 
@@ -45,4 +47,7 @@ class Player:
 
     def send(self, cmd, arg=None):
         self.queue.put((cmd, arg))
+
+    def is_finished(self) -> bool:
+        return self.player.eof_reached is not False
 
