@@ -2,7 +2,7 @@ from textual.events import Event
 from textual.geometry import Spacing
 from back.home import Home, home_loop, pull_home
 from back.player import Player
-from back.song import get_song, Song
+from back.song import get_song, Song, get_watch_list
 from back.ytm import get_account_name
 from front.home_widget import HomeWidget
 from front.player_widget import PlayerWidget
@@ -41,14 +41,9 @@ class YTMTUI(App):
 		self.loading.remove()
 		self.main_container.mount(home)
 
-	# def show_player(self, song_id: str):
-	# 	self.player_container.remove_children()
-	# 	widget = PlayerWidget(song_id)
-	# 	self.player_container.mount(widget)
-	# 	widget.play()
-
 	def play_song(self, song_id: str):
 		self.player_widget.play(song_id)
+		self.player_widget.watch_list = get_watch_list(song_id, 25)
 
 	def compose(self) -> ComposeResult:
 		yield Header()

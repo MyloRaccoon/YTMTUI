@@ -3,10 +3,8 @@ from textual.reactive import reactive
 from textual.widget import Widget
 from textual.widgets import Button, Label, ProgressBar
 from textual.app import ComposeResult
-import threading, asyncio
-from textual.containers import Container, Center
 
-from back.song import Song, get_next_song, get_song
+from back.song import Song, get_song, get_watch_list
 from back.player import Player
 
 
@@ -18,7 +16,9 @@ class PlayerWidget(Widget):
 	def __init__(self) -> None:
 		self.progress_bar = ProgressBar(total=100, show_percentage=False, show_eta=False)
 		self.started = False
-
+		self.current_song_id = None
+		self.watch_list = []
+		self.played_song = []
 		super().__init__()
 
 	def on_mount(self):
@@ -38,6 +38,7 @@ class PlayerWidget(Widget):
 	def watch_finished(self):
 		if self.finished:
 			self.started = False
+			self.current_song_id = None
 			self.play_next()
 
 
@@ -69,9 +70,11 @@ class PlayerWidget(Widget):
 			yield self.progress_bar
 			yield Label('0', id='duration_label')
 		with Horizontal():
-			yield Button("- 10", id="minus", classes="player-btn")
+			yield Button("⏮", id='previous', classes="player-btn", disabled=True)
+			yield Button("⏪", id="minus", classes="player-btn")
 			yield Button("⏸", id="pause", classes="player-btn")
-			yield Button("+ 10", id="plus", classes="player-btn")
+			yield Button("⏩", id="plus", classes="player-btn")
+			yield Button("⏭", id='next', classes="player-btn")
 
 
 	def play(self, song_id):
@@ -82,12 +85,21 @@ class PlayerWidget(Widget):
 		self.current_song_id = song_id
 
 	def play_next(self):
-		if self.current_song_id is not None:
-			self.play(get_next_song(self.current_song_id))
+		self.played_song.append(self.current_song_id)
+		if len(self.watch_list) != 0:
+			song_id = self.watch_list.pop(0)
+			self.play(song_id)
+			if len(self.watch_list) == 0:
+				self.watch_list = get_watch_list(song_id, 25)
+
+	# def play_previous(self):
+	# 	if len(self.played_song) != 0:
+	# 		song_id = self.played_song.pop(-1)
+	# 		self.current_song_id = song_id
+	# 		self.play(song_id)
 
 
 	async def on_button_pressed(self, event: Button.Pressed) -> None:
-		self.update_progress()
 		if event.button.id == "pause":
 			self.app.player.send("pause")
 			btn = self.query_one('#pause')
@@ -96,3 +108,8 @@ class PlayerWidget(Widget):
 			self.app.player.send("+10")
 		elif event.button.id == "minus":
 			self.app.player.send("-10")
+		elif event.button.id == "next":
+			self.play_next()
+		# elif event.button.id == "previous":
+		# 	self.play_previous()
+		self.update_progress()
