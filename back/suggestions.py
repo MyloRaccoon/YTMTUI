@@ -1,4 +1,3 @@
-from back.item import Item
 from back.playlist import get_playlist
 from back.song import Song, get_song
 from back.album import get_album

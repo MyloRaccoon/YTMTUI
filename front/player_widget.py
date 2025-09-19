@@ -4,8 +4,7 @@ from textual.widget import Widget
 from textual.widgets import Button, Label, ProgressBar
 from textual.app import ComposeResult
 
-from back.song import Song, get_song, get_watch_list
-from back.player import Player
+from back.song import get_song, get_watch_list
 
 
 class PlayerWidget(Widget):
@@ -71,9 +70,9 @@ class PlayerWidget(Widget):
 			yield Label('0', id='duration_label')
 		with Horizontal():
 			yield Button("⏮", id='previous', classes="player-btn", disabled=True)
-			yield Button("⏪", id="minus", classes="player-btn")
+			yield Button("- 10", id="minus", classes="player-btn")
 			yield Button("⏸", id="pause", classes="player-btn")
-			yield Button("⏩", id="plus", classes="player-btn")
+			yield Button("+ 10", id="plus", classes="player-btn")
 			yield Button("⏭", id='next', classes="player-btn")
 
 

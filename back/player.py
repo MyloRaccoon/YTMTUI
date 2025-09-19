@@ -1,8 +1,5 @@
-import subprocess
 import mpv
 import threading, queue
-
-from back.song import Song, get_song
 
 class Player:
     def __init__(self):
